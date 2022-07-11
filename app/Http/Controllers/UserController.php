@@ -64,14 +64,15 @@ class UserController extends ApiController
         $validator = Validator::make($input, $register);
     
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'error' => $validator->messages()]);
+            return $this->sendError('Bad request!', $validator->messages()->toArray());
         }
+
         $name = $request->name;
         $email    = $request->email;
         $password = $request->password;
-        $user     = User::where(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+        $user     = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
 
-        $token = $user->createToken('Practica');
+        $token = $user->createToken('dsa');
 
         return $this->sendResponse([
             'token' => $token->plainTextToken,
