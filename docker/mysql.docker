@@ -1,4 +1,0 @@
-FROM mariadb:10.3
-
-#Custom mysql stuff
-ADD ./docker/myconf.conf /etc/mysql/conf.d/myconf.conf
