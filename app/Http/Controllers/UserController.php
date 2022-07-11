@@ -59,27 +59,24 @@ class UserController extends ApiController
             'email'    => 'unique:users|required',
             'password' => 'required',
         ];
-    
-        $input     = $request->only('name', 'email','password');
+
+        $input     = $request->only('name', 'email', 'password');
         $validator = Validator::make($input, $register);
-    
+
         if ($validator->fails()) {
             return $this->sendError('Bad request!', $validator->messages()->toArray());
         }
 
         $name = $request->name;
-        $email    = $request->email;
+        $email = $request->email;
         $password = $request->password;
-        $user     = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+        $user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
 
-        $token = $user->createToken('dsa');
+        $token = $user->createToken('Practica');
 
         return $this->sendResponse([
             'token' => $token->plainTextToken,
             'user' => $user->toArray()
         ]);
-
-        
-        
     }
 }
