@@ -43,8 +43,11 @@ class CategoryController extends ApiController
                 return $this->sendError('Bad request!', $validator->messages()->toArray());
             }
 
-            if ($request->get('parent_id')) {
-                $parent = Category::find($request->get('parent_id'));
+            $name = $request->get('name');
+            $parentId = $request->get('parent_id');
+
+            if ($parentId) {
+                $parent = Category::find($parentId);
 
                 if ($parent->parent?->parent) {
                     return $this->sendError('You can\'t add a 3rd level subcategory!');
@@ -52,8 +55,8 @@ class CategoryController extends ApiController
             }
 
             $category = new Category();
-            $category->name = $request->get('name');
-            $category->parent_id = $request->get('parent_id');
+            $category->name = $name;
+            $category->parent_id = $parentId;
             $category->save();
 
             return $this->sendResponse($category->toArray());
@@ -116,5 +119,10 @@ class CategoryController extends ApiController
 
             return $this->sendError('Something went wrong, please contact administrator!');
         }
+    }
+
+    public function viewTree()
+    {
+        //todo
     }
 }
