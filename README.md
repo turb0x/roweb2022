@@ -8,7 +8,7 @@
 
 ## **Tema 2**
 
-- [ ] verificare email la register
+- [x] verificare email la register
 - [ ] uitare parola
 - [ ] openapi swagger update documentation
-- [ ] de terminat toate metodele din product controller (add, update, get, delete)
+- [x] de terminat toate metodele din product controller (add, update, get, delete)
